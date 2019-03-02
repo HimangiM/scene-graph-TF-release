@@ -7,7 +7,8 @@
 # Adapted from py-faster-rcnn (https://github.com/rbgirshick/py-faster-rcnn)
 # --------------------------------------------------------
 
-import _init_paths
+
+import _init_paths # adds the lib path from which all the functions, faster rcnn especially can be imported
 from fast_rcnn.train import train_net
 from fast_rcnn.config import cfg, cfg_from_file
 from datasets.factory import get_imdb
@@ -67,17 +68,19 @@ if __name__ == '__main__':
     print('Called with args:')
     print(args)
 
-    if args.cfg_file is not None:
-        cfg_from_file(args.cfg_file)
+    if args.cfg_file is not None: #if conf file not none in arguments
+        cfg_from_file(args.cfg_file) # call cfg_from_file func from fast_rcnn.config, basically get the configurations from this file
     cfg.TRAIN.INFERENCE_ITER = args.inference_iter
 
     print('Using config:')
-    pprint.pprint(cfg)
+    pprint.pprint(cfg) # pretty print
 
     if not args.randomize:
         # fix the random seeds (numpy) for reproducibility
         np.random.seed(cfg.RNG_SEED)
 
+    # get_imdb is a function in lib/datasets/factory.py which in turn calls vg_hdf5 func of vg_hdf5.py
+    # the actual code of get_imdb is in lib/datasets/vg_hdf5.py
     imdb = get_imdb(args.roidb, args.imdb, args.rpndb, split=0)
     print 'Loaded imdb `{:s}` for training'.format(args.imdb)
     print 'Loaded roidb `{:s}` for training'.format(args.roidb)
