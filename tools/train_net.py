@@ -73,7 +73,7 @@ if __name__ == '__main__':
     cfg.TRAIN.INFERENCE_ITER = args.inference_iter
 
     print('Using config:')
-    pprint.pprint(cfg) # pretty print
+    pprint.pprint(cfg) # pretty print of configuration in yaml format either from file given by user or own file
 
     if not args.randomize:
         # fix the random seeds (numpy) for reproducibility
